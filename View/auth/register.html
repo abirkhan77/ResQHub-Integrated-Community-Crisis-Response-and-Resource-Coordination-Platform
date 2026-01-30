@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account | ResQHub</title>
+    <link rel="stylesheet" href="/ResQHub/View/auth/register.css">
+</head>
+<body>
+
+<div class="register-container">
+
+    <!-- LEFT PANEL -->
+    <div class="register-info">
+        <h1>Join a Network of Care</h1>
+
+        <p class="lead">
+            ResQHub connects people in crisis with volunteers and responders.
+            Your presence helps reduce chaos and restore hope.
+        </p>
+
+        <ul class="benefits">
+            <li>✔ Secure & verified platform</li>
+            <li>✔ Emergency support in minutes</li>
+            <li>✔ Trusted volunteers & coordinators</li>
+        </ul>
+
+        <div class="info-footer">
+            Together, we respond. Together, we recover.
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="register-form-panel">
+        <div class="register-card">
+
+            <h2>Create Your Account</h2>
+            <p class="subtitle">Start your journey with ResQHub</p>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="full_name" placeholder="e.g. Ahmed Rahman">
+                    <small class="error" id="nameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com">
+                    <small class="error" id="emailError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Minimum 8 characters">
+                    <small class="error" id="passwordError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>How do you want to use ResQHub?</label>
+                    <select id="role" required>
+    <option value="">Choose one</option>
+    <option value="citizen">I need emergency help</option>
+    <option value="volunteer">I want to volunteer</option>
+                    </select>
+
+                    <small class="error" id="roleError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone (optional)</label>
+                    <input type="text" id="phone" placeholder="+880XXXXXXXXXX">
+                </div>
+
+                <button type="submit" class="register-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="login-link">
+                Already part of ResQHub?
+                <a href="/ResQHub/View/auth/login.html">Login here</a>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="/ResQHub/View/auth/register.js"></script>
+</body>
+</html>

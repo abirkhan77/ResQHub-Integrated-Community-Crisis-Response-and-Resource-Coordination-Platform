@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donate | ResQHub</title>
+    <link rel="stylesheet" href="donation.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-right">
+        <span class="role-badge">Citizen</span>
+        <button class="logout-btn">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <ul class="nav">
+            <li>Dashboard</li>
+            <li>Create Request</li>
+            <li>My Requests</li>
+            <li class="active">Donations</li>
+            <li>Profile</li>
+        </ul>
+    </aside>
+
+    <main class="content">
+
+        <div class="floating-card">
+            <h1>Support Relief Efforts</h1>
+            <p class="subtitle">
+                Your contribution helps communities receive faster emergency support.
+            </p>
+
+            <form id="donationForm">
+
+                <div class="field">
+                    <label>Donation Amount</label>
+                    <input type="number" id="amount" placeholder="Enter amount">
+                </div>
+
+                <div class="field">
+                    <label>Currency</label>
+                    <select id="currency">
+                        <option value="">Select currency</option>
+                        <option value="BDT">BDT</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Purpose (Optional)</label>
+                    <textarea id="purpose" rows="4"
+                        placeholder="Optional message or purpose"></textarea>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="primary-box">Donate Now</button>
+                    <button type="reset" class="secondary-box">Clear</button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/citizen/donation.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | ResQHub</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-right">
+        <span class="role-badge">Citizen</span>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <ul class="nav">
+            <li id="navDashboard">Dashboard</li>
+            <li id="navCreate">Create Request</li>
+            <li id="navMyRequests">My Requests</li>
+            <li id="navDonations">Donations</li>
+            <li class="active">Profile</li>
+        </ul>
+    </aside>
+
+    <main class="content">
+
+        <div class="profile-card">
+            <h1>My Profile</h1>
+            <p class="subtitle">Manage your personal information</p>
+
+            <form id="profileForm">
+
+                <div class="field">
+                    <label>Full Name</label>
+                    <input type="text" id="full_name">
+
+                    <span class="error" id="nameError"></span>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" id="email" disabled>
+                </div>
+
+                <div class="field">
+                    <label>Phone</label>
+                    <input type="text" id="phone">
+                </div>
+
+                <div class="field">
+                    <label>Role</label>
+                    <input type="text" id="role" disabled>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="primary-btn">Update Profile</button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/citizen/profile.js"></script>
+</body>
+</html>

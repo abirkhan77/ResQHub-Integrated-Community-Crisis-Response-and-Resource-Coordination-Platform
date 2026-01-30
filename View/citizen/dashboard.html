@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Citizen Dashboard | ResQHub</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-right">
+        <span class="role-badge">Citizen</span>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <ul class="nav">
+            <li class="active">Dashboard</li>
+            <li id="navCreate">Create Request</li>
+            <li id="navMyRequests">My Requests</li>
+            <li id="navDonations">Donations</li>
+            <li id="navProfile">Profile</li>
+        </ul>
+    </aside>
+
+    <main class="main">
+
+        <section class="welcome">
+            <h1>Welcome Back</h1>
+            <p>You are safe here. From this dashboard, you can request help, track progress, and manage your profile.</p>
+        </section>
+
+        <section class="cards">
+
+            <div class="card emergency">
+                <div class="icon">🚨</div>
+                <h3>Request Emergency Help</h3>
+                <p>Medical, food, rescue or transport assistance.</p>
+                <button id="btnCreate">Create Request</button>
+            </div>
+
+            <div class="card requests">
+                <div class="icon">📄</div>
+                <h3>My Requests</h3>
+                <p>Track status of your submitted requests.</p>
+                <button id="btnMyRequests">View Requests</button>
+            </div>
+
+            <div class="card donation">
+                <div class="icon">💙</div>
+                <h3>Donations</h3>
+                <p>Support relief efforts and communities.</p>
+                <button id="btnDonations">Donate</button>
+            </div>
+
+            <div class="card profile">
+                <div class="icon">👤</div>
+                <h3>My Profile</h3>
+                <p>Update your personal information.</p>
+                <button id="btnProfile">View Profile</button>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/citizen/dashboard.js"></script>
+</body>
+</html>

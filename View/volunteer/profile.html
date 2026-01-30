@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | ResQHub</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-actions">
+        <span class="role-badge">Volunteer</span>
+        <button class="btn btn-danger" id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="assigned_requests.html">Assigned Requests</a>
+        <a href="profile.html" class="active">My Profile</a>
+    </aside>
+
+    <main class="content">
+        <div class="profile-card">
+
+    <div class="profile-header">
+        <h2>My Profile</h2>
+        <p>Manage your personal information</p>
+    </div>
+
+    <div class="profile-body">
+        <form id="profileForm">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="full_name">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="phone">
+            </div>
+
+            <div class="form-group">
+                <label>Role</label>
+                <input type="text" id="role" disabled>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="profile-footer">
+        <button class="btn-primary" type="submit" form="profileForm">
+            Update Profile
+        </button>
+    </div>
+
+</div>
+
+    </main>
+
+</div>
+
+<script src="profile.js"></script>
+</body>
+</html>

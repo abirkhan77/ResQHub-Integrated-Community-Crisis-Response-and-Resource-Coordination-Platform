@@ -1,0 +1,140 @@
+
+@import url("dashboard.css");
+
+/* =====================
+   REQUESTS TABLE
+===================== */
+
+.card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.card thead {
+    background: var(--primary-dark);
+    color: #ffffff;
+}
+
+.card thead th {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.card tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.card tbody tr:hover {
+    background: #f8fafc;
+}
+
+.card tbody td:first-child {
+    font-weight: 600;
+}
+
+/* =====================
+   ACTION BUTTONS
+===================== */
+
+.action-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.resolve {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.cancel {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* EMPTY STATE */
+.card .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 20px;
+}
+
+@import url("dashboard.css");
+
+/* =====================
+   REQUESTS TABLE
+===================== */
+
+.card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.card thead {
+    background: var(--primary-dark);
+    color: #ffffff;
+}
+
+.card thead th {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.card tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.card tbody tr:hover {
+    background: #f8fafc;
+}
+
+.card tbody td:first-child {
+    font-weight: 600;
+}
+
+/* =====================
+   ACTION BUTTONS
+===================== */
+
+.action-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.resolve {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.cancel {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* EMPTY STATE */
+.card .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 20px;
+}

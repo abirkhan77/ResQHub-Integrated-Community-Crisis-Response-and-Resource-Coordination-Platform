@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Emergency Request | ResQHub</title>
+    <link rel="stylesheet" href="create_request.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-right">
+        <span class="role-badge">Citizen</span>
+        <a href="/ResQHub/index.php?controller=auth&action=logout" class="logout-btn">
+            Logout
+        </a>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <ul class="nav">
+            <li onclick="location.href='dashboard.html'">Dashboard</li>
+            <li class="active">Create Request</li>
+            <li onclick="location.href='my_requests.html'">My Requests</li>
+            <li onclick="location.href='donation.html'">Donations</li>
+            <li onclick="location.href='profile.html'">Profile</li>
+        </ul>
+    </aside>
+
+    <main class="content">
+
+        <div class="floating-card">
+            <h1>Request Emergency Help</h1>
+            <p class="subtitle">
+                Your request will be securely forwarded to responders and volunteers.
+            </p>
+
+            <form id="requestForm">
+
+                <div class="field">
+                    <label>Type of Emergency</label>
+                    <select id="type">
+                        <option value="">Select emergency type</option>
+                        <option value="medical">Medical</option>
+                        <option value="food">Food</option>
+                        <option value="rescue">Rescue</option>
+                        <option value="transport">Transport</option>
+                    </select>
+                    <span class="error" id="typeError"></span>
+                </div>
+
+                <div class="field">
+                    <label>Urgency Level</label>
+                    <select id="urgency">
+                        <option value="">Select urgency</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                    <span class="error" id="urgencyError"></span>
+                </div>
+
+                <div class="field">
+                    <label>Location</label>
+                    <input type="text" id="location" placeholder="Street, area, city">
+                    <span class="error" id="locationError"></span>
+                </div>
+
+                <div class="field">
+                    <label>Description</label>
+                    <textarea id="description" rows="4"
+                        placeholder="Briefly explain the situation"></textarea>
+                    <span class="error" id="descriptionError"></span>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="primary-box">
+                        Submit Request
+                    </button>
+                    <button type="reset" class="secondary-box">
+                        Clear
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/citizen/create_request.js"></script>
+</body>
+</html>

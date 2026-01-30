@@ -1,0 +1,142 @@
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e88e5, #64b5f6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 18px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+}
+
+/* LEFT INFO PANEL */
+.login-info {
+    width: 50%;
+    padding: 60px 50px;
+    background: #f4f8fc;
+}
+
+.login-info h1 {
+    color: #1e88e5;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.login-info p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.login-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.login-info li {
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #333;
+}
+
+/* RIGHT LOGIN CARD */
+.login-card {
+    width: 50%;
+    padding: 60px 50px;
+    text-align: center;
+}
+
+.login-card h2 {
+    color: #1e88e5;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.login-btn:hover {
+    opacity: 0.95;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    height: 14px;
+}
+
+.register-link {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #1e88e5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+
+    .login-info,
+    .login-card {
+        width: 100%;
+    }
+
+    .login-info {
+        text-align: center;
+    }
+}

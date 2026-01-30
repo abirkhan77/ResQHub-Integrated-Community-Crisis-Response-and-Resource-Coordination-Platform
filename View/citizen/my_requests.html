@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Requests | ResQHub</title>
+    <link rel="stylesheet" href="my_requests.css">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-right">
+        <span class="role-badge">Citizen</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <ul class="nav">
+            <li onclick="goDashboard()">Dashboard</li>
+            <li onclick="goCreate()">Create Request</li>
+            <li class="active">My Requests</li>
+            <li onclick="goDonations()">Donations</li>
+            <li onclick="goProfile()">Profile</li>
+        </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <div class="page-header">
+            <h1>My Emergency Requests</h1>
+            <p>Track the status of all your submitted emergency requests.</p>
+        </div>
+
+        <div id="requestsContainer" class="requests-grid">
+            <!-- JS will inject request cards here -->
+        </div>
+
+        <div id="emptyState" class="empty-state hidden">
+            <h3>No requests yet</h3>
+            <p>You have not submitted any emergency requests.</p>
+            <button onclick="goCreate()">Create Your First Request</button>
+        </div>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/citizen/my_requests.js"></script>
+</body>
+</html>

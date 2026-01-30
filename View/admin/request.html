@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Requests | ResQHub</title>
+    <link rel="stylesheet" href="request.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-actions">
+        <span class="role-badge">Admin</span>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="users.html">Users</a>
+        <a href="requests.html" class="active">Requests</a>
+        <a href="donations.html">Donations</a>
+    </aside>
+
+    <main class="content">
+        <h1>Manage Requests</h1>
+        <p class="subtitle">Monitor and control emergency requests</p>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Urgency</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="requestsTable">
+                    <tr>
+                        <td colspan="6" class="empty">Loading requests...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</div>
+
+<script src="/ResQHub/View/admin/request.js"></script>
+</body>
+</html>

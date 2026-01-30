@@ -1,0 +1,571 @@
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('citizen', 'volunteer', 'admin') NOT NULL,
+    account_status ENUM('active', 'inactive', 'suspended') DEFAULT 'active',
+    phone VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL
+);
+
+
+CREATE TABLE volunteer_profile (
+    volunteer_profile_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    skill_type ENUM('medical', 'transport', 'food', 'rescue') NOT NULL,
+    availability_status ENUM('available', 'unavailable') DEFAULT 'available',
+    total_help_completed INT DEFAULT 0,
+    verified_status BOOLEAN DEFAULT FALSE,
+
+    CONSTRAINT fk_volunteer_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE emergency_request (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    citizen_id INT NOT NULL,
+    request_type ENUM('food', 'medical', 'shelter', 'rescue', 'transport') NOT NULL,
+    description TEXT NOT NULL,
+    location_text VARCHAR(255) NOT NULL,
+    urgency_level ENUM('low', 'medium', 'high') NOT NULL,
+    request_status ENUM('pending', 'assigned', 'in_progress', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_request_user
+        FOREIGN KEY (citizen_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE request_assignment (
+    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    volunteer_id INT NOT NULL,
+    assigned_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    current_status ENUM('accepted', 'on_the_way', 'help_provided') DEFAULT 'accepted',
+
+    CONSTRAINT fk_assignment_request
+        FOREIGN KEY (request_id)
+        REFERENCES emergency_request(request_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_assignment_volunteer
+        FOREIGN KEY (volunteer_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE notification (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    notification_type ENUM('status_update', 'assignment', 'broadcast') NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_notification_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE activity_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    reference_type ENUM('user', 'request', 'assignment', 'donation') NOT NULL,
+    reference_id INT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_log_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE currency (
+    currency_code CHAR(3) PRIMARY KEY,
+    currency_name VARCHAR(50) NOT NULL,
+    symbol VARCHAR(10) NOT NULL
+);
+
+
+INSERT INTO currency VALUES
+('BDT', 'Bangladeshi Taka', '৳'),
+('USD', 'US Dollar', '$'),
+('EUR', 'Euro', '€');
+
+
+CREATE TABLE donation (
+    donation_id INT AUTO_INCREMENT PRIMARY KEY,
+    donor_id INT NOT NULL,
+    donation_amount DECIMAL(10,2) NOT NULL,
+    currency_code CHAR(3) NOT NULL,
+    donor_region ENUM('Bangladesh', 'Europe', 'USA') NOT NULL,
+    donation_status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    donation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    remarks TEXT,
+
+    CONSTRAINT fk_donation_user
+        FOREIGN KEY (donor_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_donation_currency
+        FOREIGN KEY (currency_code)
+        REFERENCES currency(currency_code)
+);
+
+
+CREATE TABLE payment_transaction (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    donation_id INT NOT NULL,
+    payment_method ENUM('bank', 'card', 'mobile') NOT NULL,
+    transaction_reference VARCHAR(100) NOT NULL,
+    payment_status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
+    processed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_transaction_donation
+        FOREIGN KEY (donation_id)
+        REFERENCES donation(donation_id)
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('System Admin', 'admin@resqhub.org', 
+'$2y$10$examplehashedpasswordadmin', 
+'admin', 'active', '01710000000');
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Red Crescent Medical Team', 'rc_med@resqhub.org', '$2y$10$hashed1', 'volunteer', 'active', '01720000001'),
+('City Ambulance Service', 'ambulance@resqhub.org', '$2y$10$hashed2', 'volunteer', 'active', '01720000002'),
+('Flood Rescue Unit', 'flood_rescue@resqhub.org', '$2y$10$hashed3', 'volunteer', 'active', '01720000003'),
+('Emergency Food Supply NGO', 'food_ngo@resqhub.org', '$2y$10$hashed4', 'volunteer', 'active', '01720000004'),
+('Disaster Transport Team', 'transport@resqhub.org', '$2y$10$hashed5', 'volunteer', 'active', '01720000005');
+
+
+INSERT INTO volunteer_profile 
+(user_id, skill_type, availability_status, total_help_completed, verified_status)
+VALUES
+(2, 'medical', 'available', 120, TRUE),
+(3, 'medical', 'available', 95, TRUE),
+(4, 'rescue', 'available', 80, TRUE),
+(5, 'food', 'available', 150, TRUE),
+(6, 'transport', 'available', 60, TRUE);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Rahim Ahmed', 'rahim@gmail.com', '$2y$10$hashed6', 'citizen', 'active', '01810000001'),
+('Karim Uddin', 'karim@gmail.com', '$2y$10$hashed7', 'citizen', 'active', '01810000002');
+
+
+INSERT INTO emergency_request
+(citizen_id, request_type, description, location_text, urgency_level, request_status)
+VALUES
+(7, 'medical', 'Severe injury after road accident', 'Dhanmondi, Dhaka', 'high', 'pending'),
+(8, 'food', 'Family without food after flood', 'Sirajganj', 'medium', 'pending');
+
+
+INSERT INTO activity_log
+(user_id, action, reference_type, reference_id)
+VALUES
+(7, 'Created emergency request', 'request', 1),
+(8, 'Created emergency request', 'request', 2);CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('citizen', 'volunteer', 'admin') NOT NULL,
+    account_status ENUM('active', 'inactive', 'suspended') DEFAULT 'active',
+    phone VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL
+);
+
+
+CREATE TABLE volunteer_profile (
+    volunteer_profile_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    skill_type ENUM('medical', 'transport', 'food', 'rescue') NOT NULL,
+    availability_status ENUM('available', 'unavailable') DEFAULT 'available',
+    total_help_completed INT DEFAULT 0,
+    verified_status BOOLEAN DEFAULT FALSE,
+
+    CONSTRAINT fk_volunteer_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE emergency_request (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    citizen_id INT NOT NULL,
+    request_type ENUM('food', 'medical', 'shelter', 'rescue', 'transport') NOT NULL,
+    description TEXT NOT NULL,
+    location_text VARCHAR(255) NOT NULL,
+    urgency_level ENUM('low', 'medium', 'high') NOT NULL,
+    request_status ENUM('pending', 'assigned', 'in_progress', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_request_user
+        FOREIGN KEY (citizen_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE request_assignment (
+    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    volunteer_id INT NOT NULL,
+    assigned_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    current_status ENUM('accepted', 'on_the_way', 'help_provided') DEFAULT 'accepted',
+
+    CONSTRAINT fk_assignment_request
+        FOREIGN KEY (request_id)
+        REFERENCES emergency_request(request_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_assignment_volunteer
+        FOREIGN KEY (volunteer_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE notification (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    notification_type ENUM('status_update', 'assignment', 'broadcast') NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_notification_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE activity_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    reference_type ENUM('user', 'request', 'assignment', 'donation') NOT NULL,
+    reference_id INT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_log_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE currency (
+    currency_code CHAR(3) PRIMARY KEY,
+    currency_name VARCHAR(50) NOT NULL,
+    symbol VARCHAR(10) NOT NULL
+);
+
+
+INSERT INTO currency VALUES
+('BDT', 'Bangladeshi Taka', '৳'),
+('USD', 'US Dollar', '$'),
+('EUR', 'Euro', '€');
+
+
+CREATE TABLE donation (
+    donation_id INT AUTO_INCREMENT PRIMARY KEY,
+    donor_id INT NOT NULL,
+    donation_amount DECIMAL(10,2) NOT NULL,
+    currency_code CHAR(3) NOT NULL,
+    donor_region ENUM('Bangladesh', 'Europe', 'USA') NOT NULL,
+    donation_status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    donation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    remarks TEXT,
+
+    CONSTRAINT fk_donation_user
+        FOREIGN KEY (donor_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_donation_currency
+        FOREIGN KEY (currency_code)
+        REFERENCES currency(currency_code)
+);
+
+
+CREATE TABLE payment_transaction (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    donation_id INT NOT NULL,
+    payment_method ENUM('bank', 'card', 'mobile') NOT NULL,
+    transaction_reference VARCHAR(100) NOT NULL,
+    payment_status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
+    processed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_transaction_donation
+        FOREIGN KEY (donation_id)
+        REFERENCES donation(donation_id)
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('System Admin', 'admin@resqhub.org', 
+'$2y$10$examplehashedpasswordadmin', 
+'admin', 'active', '01710000000');
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Red Crescent Medical Team', 'rc_med@resqhub.org', '$2y$10$hashed1', 'volunteer', 'active', '01720000001'),
+('City Ambulance Service', 'ambulance@resqhub.org', '$2y$10$hashed2', 'volunteer', 'active', '01720000002'),
+('Flood Rescue Unit', 'flood_rescue@resqhub.org', '$2y$10$hashed3', 'volunteer', 'active', '01720000003'),
+('Emergency Food Supply NGO', 'food_ngo@resqhub.org', '$2y$10$hashed4', 'volunteer', 'active', '01720000004'),
+('Disaster Transport Team', 'transport@resqhub.org', '$2y$10$hashed5', 'volunteer', 'active', '01720000005');
+
+
+INSERT INTO volunteer_profile 
+(user_id, skill_type, availability_status, total_help_completed, verified_status)
+VALUES
+(2, 'medical', 'available', 120, TRUE),
+(3, 'medical', 'available', 95, TRUE),
+(4, 'rescue', 'available', 80, TRUE),
+(5, 'food', 'available', 150, TRUE),
+(6, 'transport', 'available', 60, TRUE);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Rahim Ahmed', 'rahim@gmail.com', '$2y$10$hashed6', 'citizen', 'active', '01810000001'),
+('Karim Uddin', 'karim@gmail.com', '$2y$10$hashed7', 'citizen', 'active', '01810000002');
+
+
+INSERT INTO emergency_request
+(citizen_id, request_type, description, location_text, urgency_level, request_status)
+VALUES
+(7, 'medical', 'Severe injury after road accident', 'Dhanmondi, Dhaka', 'high', 'pending'),
+(8, 'food', 'Family without food after flood', 'Sirajganj', 'medium', 'pending');
+
+
+INSERT INTO activity_log
+(user_id, action, reference_type, reference_id)
+VALUES
+(7, 'Created emergency request', 'request', 1),
+(8, 'Created emergency request', 'request', 2);CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('citizen', 'volunteer', 'admin') NOT NULL,
+    account_status ENUM('active', 'inactive', 'suspended') DEFAULT 'active',
+    phone VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL
+);
+
+
+CREATE TABLE volunteer_profile (
+    volunteer_profile_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    skill_type ENUM('medical', 'transport', 'food', 'rescue') NOT NULL,
+    availability_status ENUM('available', 'unavailable') DEFAULT 'available',
+    total_help_completed INT DEFAULT 0,
+    verified_status BOOLEAN DEFAULT FALSE,
+
+    CONSTRAINT fk_volunteer_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE emergency_request (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    citizen_id INT NOT NULL,
+    request_type ENUM('food', 'medical', 'shelter', 'rescue', 'transport') NOT NULL,
+    description TEXT NOT NULL,
+    location_text VARCHAR(255) NOT NULL,
+    urgency_level ENUM('low', 'medium', 'high') NOT NULL,
+    request_status ENUM('pending', 'assigned', 'in_progress', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_request_user
+        FOREIGN KEY (citizen_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE request_assignment (
+    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    volunteer_id INT NOT NULL,
+    assigned_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    current_status ENUM('accepted', 'on_the_way', 'help_provided') DEFAULT 'accepted',
+
+    CONSTRAINT fk_assignment_request
+        FOREIGN KEY (request_id)
+        REFERENCES emergency_request(request_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_assignment_volunteer
+        FOREIGN KEY (volunteer_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE notification (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    notification_type ENUM('status_update', 'assignment', 'broadcast') NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_notification_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE activity_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    reference_type ENUM('user', 'request', 'assignment', 'donation') NOT NULL,
+    reference_id INT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_log_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE currency (
+    currency_code CHAR(3) PRIMARY KEY,
+    currency_name VARCHAR(50) NOT NULL,
+    symbol VARCHAR(10) NOT NULL
+);
+
+
+INSERT INTO currency VALUES
+('BDT', 'Bangladeshi Taka', '৳'),
+('USD', 'US Dollar', '$'),
+('EUR', 'Euro', '€');
+
+
+CREATE TABLE donation (
+    donation_id INT AUTO_INCREMENT PRIMARY KEY,
+    donor_id INT NOT NULL,
+    donation_amount DECIMAL(10,2) NOT NULL,
+    currency_code CHAR(3) NOT NULL,
+    donor_region ENUM('Bangladesh', 'Europe', 'USA') NOT NULL,
+    donation_status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    donation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    remarks TEXT,
+
+    CONSTRAINT fk_donation_user
+        FOREIGN KEY (donor_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_donation_currency
+        FOREIGN KEY (currency_code)
+        REFERENCES currency(currency_code)
+);
+
+
+CREATE TABLE payment_transaction (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    donation_id INT NOT NULL,
+    payment_method ENUM('bank', 'card', 'mobile') NOT NULL,
+    transaction_reference VARCHAR(100) NOT NULL,
+    payment_status ENUM('success', 'failed', 'pending') DEFAULT 'pending',
+    processed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_transaction_donation
+        FOREIGN KEY (donation_id)
+        REFERENCES donation(donation_id)
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('System Admin', 'admin@resqhub.org', 
+'$2y$10$examplehashedpasswordadmin', 
+'admin', 'active', '01710000000');
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Red Crescent Medical Team', 'rc_med@resqhub.org', '$2y$10$hashed1', 'volunteer', 'active', '01720000001'),
+('City Ambulance Service', 'ambulance@resqhub.org', '$2y$10$hashed2', 'volunteer', 'active', '01720000002'),
+('Flood Rescue Unit', 'flood_rescue@resqhub.org', '$2y$10$hashed3', 'volunteer', 'active', '01720000003'),
+('Emergency Food Supply NGO', 'food_ngo@resqhub.org', '$2y$10$hashed4', 'volunteer', 'active', '01720000004'),
+('Disaster Transport Team', 'transport@resqhub.org', '$2y$10$hashed5', 'volunteer', 'active', '01720000005');
+
+
+INSERT INTO volunteer_profile 
+(user_id, skill_type, availability_status, total_help_completed, verified_status)
+VALUES
+(2, 'medical', 'available', 120, TRUE),
+(3, 'medical', 'available', 95, TRUE),
+(4, 'rescue', 'available', 80, TRUE),
+(5, 'food', 'available', 150, TRUE),
+(6, 'transport', 'available', 60, TRUE);
+
+
+INSERT INTO users 
+(full_name, email, password_hash, role, account_status, phone)
+VALUES
+('Rahim Ahmed', 'rahim@gmail.com', '$2y$10$hashed6', 'citizen', 'active', '01810000001'),
+('Karim Uddin', 'karim@gmail.com', '$2y$10$hashed7', 'citizen', 'active', '01810000002');
+
+
+INSERT INTO emergency_request
+(citizen_id, request_type, description, location_text, urgency_level, request_status)
+VALUES
+(7, 'medical', 'Severe injury after road accident', 'Dhanmondi, Dhaka', 'high', 'pending'),
+(8, 'food', 'Family without food after flood', 'Sirajganj', 'medium', 'pending');
+
+
+INSERT INTO activity_log
+(user_id, action, reference_type, reference_id)
+VALUES
+(7, 'Created emergency request', 'request', 1),
+(8, 'Created emergency request', 'request', 2);

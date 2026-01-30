@@ -1,0 +1,170 @@
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #333;
+}
+
+/* =========================
+   TOP BAR (MATCH MY_REQUESTS)
+========================= */
+.topbar {
+    height: 64px;
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    color: #fff;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.role-badge {
+    background: rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.logout-btn {
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #ff5c5c;
+    color: #fff;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #e74c3c;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.app {
+    display: flex;
+    min-height: calc(100vh - 64px);
+}
+
+/* =========================
+   SIDEBAR (MATCH MY_REQUESTS)
+========================= */
+.sidebar {
+    width: 240px;
+    background: #ffffff;
+    border-right: 1px solid #e0e6ed;
+    padding-top: 24px;
+}
+
+.nav {
+    list-style: none;
+}
+
+.nav li {
+    padding: 14px 28px;
+    cursor: pointer;
+    color: #444;
+    transition: 0.2s;
+}
+
+.nav li:hover {
+    background: #f0f4ff;
+    color: #2a5298;
+}
+
+.nav li.active {
+    background: linear-gradient(90deg, #2a5298, #1e3c72);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.main {
+    flex: 1;
+    padding: 36px;
+}
+
+.welcome h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #666;
+    margin-bottom: 32px;
+}
+
+/* =========================
+   CARDS
+========================= */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.1);
+}
+
+.icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+.card button {
+    background: linear-gradient(90deg, #2a5298, #1e3c72);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.card button:hover {
+    opacity: 0.9;
+}

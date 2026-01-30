@@ -1,0 +1,71 @@
+
+@import url("dashboard.css");
+
+/* =====================
+   TABLE LAYOUT (FIX)
+===================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+    font-size: 14px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+}
+
+/* =====================
+   STATUS BADGES
+===================== */
+.status {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.suspended {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =====================
+   ACTION BUTTONS
+===================== */
+.action-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+}
+
+.activate {
+    background: #16a34a;
+    color: #fff;
+}
+
+.suspend {
+    background: #dc2626;
+    color: #fff;
+}

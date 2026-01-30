@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assigned Requests | ResQHub</title>
+    <link rel="stylesheet" href="assigned_requests.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+    <div class="brand">ResQHub</div>
+    <div class="top-actions">
+        <span class="role-badge">Volunteer</span>
+        <button class="btn btn-danger" id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="assigned_requests.html" class="active">Assigned Requests</a>
+        <a href="profile.html">My Profile</a>
+        <!-- ❌ REMOVED SIDEBAR LOGOUT -->
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <div class="page-header">
+            <h1>Assigned Requests</h1>
+            <p>Emergency requests you are currently handling</p>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="assignedTable">
+                    <tr>
+                        <td colspan="5" class="empty">No assigned requests.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+
+<script src="/ResQHub/View/volunteer/assigned_requests.js"></script>
+</body>
+</html>

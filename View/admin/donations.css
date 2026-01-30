@@ -1,0 +1,46 @@
+
+@import url("dashboard.css");
+
+/* =====================
+   DONATIONS TABLE
+===================== */
+
+.card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.card thead {
+    background: var(--primary-dark);
+    color: #ffffff;
+}
+
+.card thead th {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.card tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    color: var(--text);
+}
+
+.card tbody tr:hover {
+    background: #f8fafc;
+}
+
+.card tbody td:first-child {
+    font-weight: 600;
+}
+
+/* EMPTY STATE */
+.card .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 20px;
+}

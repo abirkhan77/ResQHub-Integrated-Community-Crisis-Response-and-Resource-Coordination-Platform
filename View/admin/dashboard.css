@@ -1,0 +1,124 @@
+:root {
+    --primary: #2563eb;
+    --primary-dark: #0b2a4a;
+    --bg: #f4f6f8;
+    --white: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --danger: #dc2626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* TOPBAR */
+.topbar {
+    height: 60px;
+    background: var(--primary-dark);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.top-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.role-badge {
+    background: #16a34a;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: var(--danger);
+    border: none;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+/* LAYOUT */
+.layout {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: var(--primary-dark);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* CONTENT */
+.content {
+    flex: 1;
+    padding: 32px;
+}
+
+.subtitle {
+    color: var(--muted);
+    margin-bottom: 24px;
+}
+
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 6px;
+}
