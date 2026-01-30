@@ -50,5 +50,5 @@ http://localhost/ResQHub
 --- 
 👨‍💻 Author
 
-Shahriyar Simoon
+Abir H. Khan
 Computer Science & Engineering
