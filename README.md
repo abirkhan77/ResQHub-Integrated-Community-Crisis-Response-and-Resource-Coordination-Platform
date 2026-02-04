@@ -34,7 +34,7 @@ ResQHub is a web-based platform designed to facilitate real-time crisis reportin
 ## ⚙️ Installation & Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Shahriyarrrrr/ResQHub-Integrated-Community-Crisis-Response-and-Resource-Coordination-Platform.git
+   git clone https://github.com/abirkhan77/ResQHub-Integrated-Community-Crisis-Response-and-Resource-Coordination-Platform.git
 Move the project to:
 
 C:\xampp\htdocs\
